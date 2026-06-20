@@ -5,28 +5,36 @@ var AudioCtx = null;
 
 function getCtx() {
   if (!AudioCtx) {
-    AudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) AudioCtx = new AC();
+    } catch(e) {}
   }
-  if (AudioCtx.state === 'suspended') AudioCtx.resume();
+  if (AudioCtx && AudioCtx.state === 'suspended') {
+    try { AudioCtx.resume(); } catch(e) {}
+  }
   return AudioCtx;
 }
 
 function tone(freq, dur, type, vol, delay) {
   var ctx = getCtx();
-  type  = type  || 'sine';
-  vol   = vol   || 0.3;
-  delay = delay || 0;
-  var t   = ctx.currentTime + delay;
-  var osc = ctx.createOscillator();
-  var g   = ctx.createGain();
-  osc.connect(g);
-  g.connect(ctx.destination);
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, t);
-  g.gain.setValueAtTime(vol, t);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  osc.start(t);
-  osc.stop(t + dur + 0.05);
+  if (!ctx) return;
+  try {
+    type  = type  || 'sine';
+    vol   = vol   || 0.3;
+    delay = delay || 0;
+    var t   = ctx.currentTime + delay;
+    var osc = ctx.createOscillator();
+    var g   = ctx.createGain();
+    osc.connect(g);
+    g.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, t);
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.start(t);
+    osc.stop(t + dur + 0.05);
+  } catch(e) {}
 }
 
 /* звуковые подписи животных */
@@ -166,11 +174,8 @@ function showScreen(id) {
   }
 
   document.getElementById('btn-play').addEventListener('click', function () {
-    /* разблокируем AudioContext первым нажатием */
-    getCtx();
-    successSound();
-    playClip('snd_hello');
     showScreen('screen-menu');
+    try { getCtx(); successSound(); playClip('snd_hello'); } catch(e) {}
   });
 })();
 

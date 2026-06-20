@@ -126,7 +126,7 @@
 <script src="assets/app.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(function(){});
+  try { navigator.serviceWorker.register('./sw.js').catch(function(){}); } catch(e) {}
 }
 </script>
 </body>
