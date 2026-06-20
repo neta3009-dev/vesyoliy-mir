@@ -1,3 +1,8 @@
+/* Полифилл: NodeList.forEach не работает в старых Android WebView */
+if (typeof NodeList !== 'undefined' && !NodeList.prototype.forEach) {
+  NodeList.prototype.forEach = Array.prototype.forEach;
+}
+
 /* ═══════════════════════════════════════════════════
    WEB AUDIO ENGINE
 ═══════════════════════════════════════════════════ */
@@ -174,8 +179,8 @@ function showScreen(id) {
   }
 
   document.getElementById('btn-play').addEventListener('click', function () {
-    showScreen('screen-menu');
     try { getCtx(); successSound(); playClip('snd_hello'); } catch(e) {}
+    showScreen('screen-menu');
   });
 })();
 
