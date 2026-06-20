@@ -261,8 +261,12 @@ function showBubble(text, card, color) {
     wrapper.className = 'anim-wrapper ' + a.idle;
 
     var emoji = document.createElement('span');
-    emoji.className   = 'animal-emoji';
-    emoji.textContent = a.emoji;
+    emoji.className = 'animal-emoji';
+    if (a.emoji && a.emoji.charAt(0) === '<') {
+      emoji.innerHTML = a.emoji; /* SVG-утка — innerHTML для поддержки старых Android */
+    } else {
+      emoji.textContent = a.emoji;
+    }
 
     var name = document.createElement('span');
     name.className   = 'animal-name';

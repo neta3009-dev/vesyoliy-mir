@@ -759,8 +759,9 @@ html, body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;
-  width: 100%;
-  max-width: 560px;
+  /* считаем ширину так, чтобы 4 ряда квадратных ячеек влезли по высоте экрана */
+  width: calc((100vh - 200px) / 2);
+  max-width: calc(100vw - 32px);
 }
 
 .puzzle-cell {

@@ -24,7 +24,7 @@ const ANIMALS = [
     glow: '#2dc653', idle: 'idle-hop', click: 'click-super-jump',
   },
   {
-    id: 'duck',  emoji: '🦆', name: 'Утка',    sound: 'КРЯ-КРЯ!',
+    id: 'duck',  emoji: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:middle"><ellipse cx="42" cy="67" rx="32" ry="22" fill="#FDD835"/><circle cx="62" cy="40" r="21" fill="#FDD835"/><ellipse cx="81" cy="46" rx="13" ry="8" fill="#FB8C00"/><circle cx="69" cy="33" r="4" fill="#212121"/><circle cx="70" cy="32" r="1.8" fill="white"/><ellipse cx="33" cy="60" rx="19" ry="10" fill="#F9A825" transform="rotate(-15 33 60)"/></svg>', name: 'Утка',    sound: 'КРЯ-КРЯ!',
     phrase: 'Утка говорит кря-кря!',
     bg: 'linear-gradient(145deg,#fff9a0,#f9a825)',
     glow: '#f9a825', idle: 'idle-waddle', click: 'click-flap',
