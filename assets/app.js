@@ -1,6 +1,7 @@
-﻿/* Полифилл: NodeList.forEach не работает в старых Android WebView */
-if (typeof NodeList !== 'undefined' && !NodeList.prototype.forEach) {
-  NodeList.prototype.forEach = Array.prototype.forEach;
+﻿/* Совместимая замена querySelectorAll().forEach() для старых Android WebView */
+function qsa(sel, fn) {
+  var els = document.querySelectorAll(sel);
+  for (var i = 0; i < els.length; i++) { fn(els[i]); }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -155,7 +156,7 @@ function launchConfetti(count) {
    ЭКРАНЫ
 ═══════════════════════════════════════════════════ */
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+  qsa('.screen', function(s) { s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
 }
 
@@ -187,22 +188,22 @@ function showScreen(id) {
 /* ═══════════════════════════════════════════════════
    МЕНЮ
 ═══════════════════════════════════════════════════ */
-document.querySelectorAll('[data-goto]').forEach(function (card) {
+qsa('[data-goto]', function (card) {
   card.addEventListener('click', function () {
     tapSound();
     var target = card.dataset.goto;
     showScreen(target);
     if (target === 'screen-alphabet') renderAlphabetPage();
     if (target === 'screen-numbers')  resetNumbers();
-    if (target === 'screen-shapes')   setTimeout(function() { playClip('snd_task_' + TASKS[taskIdx].targetId); }, 500);
+    if (target === 'screen-shapes')   setTimeout(function() { try { playClip('snd_task_' + TASKS[taskIdx].targetId); } catch(e){} }, 500);
     if (target === 'screen-puzzles')  initPuzzleSelect();
   });
 });
 
-document.querySelectorAll('.btn-back').forEach(function (btn) {
+qsa('.btn-back', function (btn) {
   btn.addEventListener('click', function () {
     tapSound();
-    if (window.speechSynthesis) speechSynthesis.cancel();
+    try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch(e) {}
     var fromPuzzlePlay = (btn.id === 'puzzle-play-back');
     showScreen(fromPuzzlePlay ? 'screen-puzzles' : 'screen-menu');
   });
@@ -272,14 +273,18 @@ function showBubble(text, card, color) {
     card.appendChild(name);
 
     var busy = false;
+    var busyTimer = null;
     card.addEventListener('click', function () {
       if (busy) return;
       busy = true;
       wrapper.className = 'anim-wrapper ' + a.click;
-      wrapper.addEventListener('animationend', function () {
+      function resetBusy() {
         wrapper.className = 'anim-wrapper ' + a.idle;
         busy = false;
-      }, { once: true });
+        if (busyTimer) { clearTimeout(busyTimer); busyTimer = null; }
+      }
+      wrapper.addEventListener('animationend', resetBusy, { once: true });
+      busyTimer = setTimeout(resetBusy, 900); /* запасной, если animationend не сработает */
 
       animalSound(a.id);
       playClip('snd_' + a.id);
@@ -319,7 +324,7 @@ var TASKS = [
 var taskIdx = 0;
 
 function highlightTask(autoSpeak) {
-  document.querySelectorAll('.shape-card').forEach(function (c) {
+  qsa('.shape-card', function (c) {
     c.classList.remove('task-target');
     c.style.removeProperty('--glow');
   });
@@ -346,14 +351,11 @@ function highlightTask(autoSpeak) {
       card.classList.add('grow');
       card.addEventListener('animationend', function () { card.classList.remove('grow'); }, { once: true });
       if (s.id === TASKS[taskIdx].targetId) {
-        successSound();
-        playClip('snd_ok_' + s.id);
-        launchConfetti();
+        try { successSound(); playClip('snd_ok_' + s.id); launchConfetti(); } catch(e) {}
         var bar = document.getElementById('task-bar');
-        bar.classList.add('task-success');
-        bar.addEventListener('animationend', function () { bar.classList.remove('task-success'); }, { once: true });
+        try { bar.classList.add('task-success'); bar.addEventListener('animationend', function () { bar.classList.remove('task-success'); }, { once: true }); } catch(e) {}
         taskIdx = (taskIdx + 1) % TASKS.length;
-        setTimeout(function() { highlightTask(true); }, 1800);
+        setTimeout(function() { try { highlightTask(true); } catch(e) { highlightTask(false); } }, 1800);
       } else {
         tapSound();
         playClip('snd_' + s.id);
@@ -398,19 +400,15 @@ function newNumberTask() {
   var prev = numTarget;
   do { numTarget = Math.floor(Math.random() * 20) + 1; } while (numTarget === prev);
   document.getElementById('num-task-big').textContent = numTarget;
-  document.querySelectorAll('.number-card').forEach(function (c) {
-    c.classList.remove('num-correct', 'num-wrong');
-  });
-  setTimeout(function () { playClip('snd_num_' + numTarget); }, 350);
+  qsa('.number-card', function (c) { c.classList.remove('num-correct', 'num-wrong'); });
+  setTimeout(function () { try { playClip('snd_num_' + numTarget); } catch(e) {} }, 350);
 }
 
 function resetNumbers() {
   numBusy   = false;
   numTarget = 0;
   document.getElementById('num-task-big').textContent = '?';
-  document.querySelectorAll('.number-card').forEach(function (c) {
-    c.classList.remove('num-correct', 'num-wrong');
-  });
+  qsa('.number-card', function (c) { c.classList.remove('num-correct', 'num-wrong'); });
   setTimeout(newNumberTask, 700);
 }
 
@@ -428,9 +426,7 @@ function resetNumbers() {
         if (n === numTarget) {
           numBusy = true;
           card.classList.add('num-correct');
-          fanfareSound();
-          launchConfetti(100);
-          playClip('snd_numok_' + Math.floor(Math.random() * 5));
+          try { fanfareSound(); launchConfetti(100); playClip('snd_numok_' + Math.floor(Math.random() * 5)); } catch(e) {}
           setTimeout(newNumberTask, 2400);
         } else {
           card.classList.add('num-wrong');

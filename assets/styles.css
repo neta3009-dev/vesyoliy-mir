@@ -765,7 +765,8 @@ html, body {
 
 .puzzle-cell {
   border-radius: 14px;
-  aspect-ratio: 1.3 / 1;
+  height: 0;
+  padding-bottom: 100%; /* квадрат — верно для сетки 2×4 при картинке 400×800 */
   cursor: pointer;
   background-repeat: no-repeat;
   box-shadow: 0 3px 10px rgba(0,0,0,.18);
