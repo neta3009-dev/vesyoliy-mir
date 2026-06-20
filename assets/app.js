@@ -1,4 +1,4 @@
-/* Полифилл: NodeList.forEach не работает в старых Android WebView */
+﻿/* Полифилл: NodeList.forEach не работает в старых Android WebView */
 if (typeof NodeList !== 'undefined' && !NodeList.prototype.forEach) {
   NodeList.prototype.forEach = Array.prototype.forEach;
 }
@@ -202,7 +202,7 @@ document.querySelectorAll('[data-goto]').forEach(function (card) {
 document.querySelectorAll('.btn-back').forEach(function (btn) {
   btn.addEventListener('click', function () {
     tapSound();
-    speechSynthesis.cancel();
+    if (window.speechSynthesis) speechSynthesis.cancel();
     var fromPuzzlePlay = (btn.id === 'puzzle-play-back');
     showScreen(fromPuzzlePlay ? 'screen-puzzles' : 'screen-menu');
   });
@@ -218,7 +218,7 @@ function initPuzzleSelect() {
     card.style.background = p.bg;
     var thumb = document.createElement('div');
     thumb.className = 'puzzle-option-thumb';
-    thumb.style.backgroundImage = "url('assets/images/puzzle/" + p.id + ".svg')";
+    thumb.style.backgroundImage = "url('assets/images/puzzle/" + p.id + ".png')";
     var label = document.createElement('div');
     label.className = 'puzzle-option-name';
     label.textContent = p.emoji + ' ' + p.name;

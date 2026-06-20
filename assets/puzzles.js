@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════
    ПАЗЛЫ — данные
 ═══════════════════════════════════════════════════ */
 var PUZZLES = [
@@ -41,7 +41,7 @@ function pzOpen(puzzle) {
 
   document.getElementById('puzzle-title').textContent = puzzle.name;
   var ref = document.getElementById('puzzle-reference');
-  ref.style.backgroundImage = "url('assets/images/puzzle/" + puzzle.id + ".svg')";
+  ref.style.backgroundImage = "url('assets/images/puzzle/" + puzzle.id + ".png')";
 
   pzRender();
   showScreen('screen-puzzle-play');
@@ -59,7 +59,7 @@ function pzBgPos(pieceId) {
 function pzRender() {
   var grid = document.getElementById('puzzle-grid');
   grid.innerHTML = '';
-  var img = "url('assets/images/puzzle/" + PZ.current.id + ".svg')";
+  var img = "url('assets/images/puzzle/" + PZ.current.id + ".png')";
 
   for (var slot = 0; slot < PZ.N; slot++) {
     (function(slot) {

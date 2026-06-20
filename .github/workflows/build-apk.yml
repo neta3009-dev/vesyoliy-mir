@@ -34,9 +34,9 @@ jobs:
           cp index.html manifest.json sw.js android/app/src/main/assets/
           cp -r assets/. android/app/src/main/assets/assets/
 
-      - name: Generate launcher icons
+      - name: Generate launcher icons & convert puzzle SVGs to PNG
         run: |
-          sudo apt-get install -y imagemagick > /dev/null 2>&1
+          sudo apt-get install -y imagemagick libmagickcore-dev > /dev/null 2>&1
           for size in 48 72 96 144 192; do
             case $size in
               48)  d=mdpi ;;
@@ -47,6 +47,13 @@ jobs:
             esac
             mkdir -p android/app/src/main/res/mipmap-$d
             convert icon-192.png -resize ${size}x${size} android/app/src/main/res/mipmap-$d/ic_launcher.png
+          done
+          # Конвертируем SVG в PNG для пазлов (400x800 — портретные картинки)
+          for svg in android/app/src/main/assets/assets/images/puzzle/*.svg; do
+            png="${svg%.svg}.png"
+            convert -background white -size 400x800 "$svg" "$png" 2>/dev/null || \
+            rsvg-convert -w 400 -h 800 "$svg" > "$png" 2>/dev/null || \
+            cp "$svg" "$png"
           done
 
       - name: Set local.properties
