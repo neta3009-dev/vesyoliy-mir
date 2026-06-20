@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#29B6F6"/>
+      <stop offset="100%" stop-color="#B3E5FC"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="800" fill="url(#bg)"/>
+  <!-- Sun -->
+  <circle cx="60" cy="80" r="52" fill="#FFD700"/>
+  <!-- Clouds -->
+  <g fill="white" opacity="0.9">
+    <ellipse cx="300" cy="120" rx="65" ry="30"/><ellipse cx="350" cy="105" rx="50" ry="22"/>
+    <ellipse cx="270" cy="130" rx="45" ry="22"/>
+  </g>
+  <g fill="white" opacity="0.75">
+    <ellipse cx="80" cy="680" rx="70" ry="35"/><ellipse cx="140" cy="695" rx="55" ry="28"/>
+    <ellipse cx="310" cy="670" rx="60" ry="30"/>
+  </g>
+  <!-- Green ground below -->
+  <rect y="740" width="400" height="60" fill="#4CAF50"/>
+  <!-- Shadow on ground -->
+  <ellipse cx="200" cy="745" rx="150" ry="12" fill="#222" opacity="0.25"/>
+  <!-- HELICOPTER -->
+  <!-- Main rotor shaft -->
+  <rect x="195" y="175" width="10" height="80" fill="#555"/>
+  <!-- Main rotor blades -->
+  <rect x="20" y="188" width="360" height="22" rx="10" fill="#FF6D00"/>
+  <rect x="190" y="110" width="20" height="180" rx="10" fill="#FF8F00"/>
+  <!-- Rotor hub -->
+  <circle cx="200" cy="200" r="18" fill="#444"/>
+  <!-- Body (fuselage) -->
+  <path d="M50 380 Q50 280 200 280 Q350 280 350 380 L320 540 Q200 580 80 540Z" fill="#FFC107"/>
+  <!-- Cockpit bubble -->
+  <path d="M110 320 Q200 265 290 320 L290 400 Q200 440 110 400Z" fill="#81D4FA" opacity="0.85"/>
+  <path d="M130 330 Q200 285 270 330 L270 390 Q200 420 130 390Z" fill="#B3E5FC" opacity="0.6"/>
+  <!-- Body detail stripe -->
+  <path d="M80 450 Q200 480 320 450 L320 470 Q200 500 80 470Z" fill="#FF8F00" opacity="0.8"/>
+  <!-- Tail boom -->
+  <path d="M50 440 L0 480 L0 510 L50 480Z" fill="#FFB300"/>
+  <!-- Tail rotor -->
+  <rect x="-15" y="462" width="16" height="68" rx="7" fill="#FF6D00"/>
+  <rect x="-30" y="480" width="64" height="14" rx="6" fill="#FF8F00"/>
+  <circle cx="0" cy="494" r="10" fill="#555"/>
+  <!-- Skids (landing gear) -->
+  <g fill="#555">
+    <rect x="90" y="570" width="12" height="80" rx="5"/><rect x="298" y="570" width="12" height="80" rx="5"/>
+    <rect x="55" y="645" width="110" height="16" rx="7"/><rect x="240" y="645" width="110" height="16" rx="7"/>
+  </g>
+  <!-- Door window -->
+  <rect x="170" y="400" width="100" height="70" rx="10" fill="#81D4FA" opacity="0.7"/>
+  <!-- Registration number -->
+  <text x="200" y="530" text-anchor="middle" font-size="32" fill="#E65100" font-family="Arial" font-weight="bold">RA-111</text>
+</svg>

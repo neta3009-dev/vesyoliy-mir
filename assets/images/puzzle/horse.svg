@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="60%" stop-color="#98D8A0"/>
+      <stop offset="100%" stop-color="#4CAF50"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="800" fill="url(#bg)"/>
+  <!-- Sun -->
+  <circle cx="50" cy="70" r="48" fill="#FFD700"/>
+  <!-- Clouds -->
+  <g fill="white" opacity="0.9">
+    <ellipse cx="240" cy="100" rx="65" ry="30"/><ellipse cx="295" cy="82" rx="50" ry="22"/>
+    <ellipse cx="210" cy="112" rx="42" ry="20"/>
+  </g>
+  <!-- Ground -->
+  <rect y="680" width="400" height="120" fill="#388E3C"/>
+  <!-- Grass blades -->
+  <g fill="#2E7D32">
+    <rect x="20" y="668" width="8" height="22" rx="3"/><rect x="50" y="670" width="7" height="18" rx="3"/>
+    <rect x="100" y="665" width="8" height="24" rx="3"/><rect x="180" y="668" width="7" height="20" rx="3"/>
+    <rect x="260" y="666" width="8" height="22" rx="3"/><rect x="340" y="670" width="7" height="18" rx="3"/>
+    <rect x="380" y="665" width="8" height="24" rx="3"/>
+  </g>
+  <!-- Flower decorations -->
+  <g>
+    <circle cx="70" cy="665" r="8" fill="#FF6F00"/>
+    <circle cx="200" cy="660" r="8" fill="#FF4081"/>
+    <circle cx="320" cy="663" r="8" fill="#FFD600"/>
+  </g>
+  <!-- Shadow -->
+  <ellipse cx="210" cy="682" rx="155" ry="14" fill="#1B5E20" opacity="0.35"/>
+  <!-- HORSE BODY -->
+  <!-- Body main -->
+  <ellipse cx="200" cy="520" rx="155" ry="115" fill="#8B4513"/>
+  <!-- Neck -->
+  <path d="M140 430 Q160 320 220 270 Q260 250 270 290 Q265 340 230 390 Q210 430 185 445Z" fill="#7B3A0F"/>
+  <!-- Head -->
+  <ellipse cx="250" cy="230" rx="55" ry="75" fill="#8B4513" transform="rotate(-20,250,230)"/>
+  <!-- Snout -->
+  <ellipse cx="285" cy="200" rx="30" ry="22" fill="#A0522D" transform="rotate(-20,285,200)"/>
+  <!-- Nostril -->
+  <ellipse cx="295" cy="195" rx="8" ry="5" fill="#6B3010"/>
+  <!-- Eye -->
+  <circle cx="240" cy="205" r="14" fill="#111"/>
+  <circle cx="240" cy="205" r="9" fill="#3E2000"/>
+  <circle cx="236" cy="201" r="4" fill="white"/>
+  <!-- Ear -->
+  <polygon points="220,145 210,90 235,130" fill="#7B3A0F"/>
+  <polygon points="220,145 213,105 232,135" fill="#F0A0A0"/>
+  <!-- Mane -->
+  <path d="M200 250 Q180 300 170 360 Q165 400 175 430" stroke="#3E1E00" stroke-width="28" fill="none" stroke-linecap="round"/>
+  <path d="M215 245 Q195 300 185 360 Q178 405 188 438" stroke="#5C2D00" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <!-- Tail -->
+  <path d="M55 490 Q0 550 10 620 Q20 660 40 650" stroke="#3E1E00" stroke-width="22" fill="none" stroke-linecap="round"/>
+  <path d="M55 500 Q5 565 18 630 Q30 665 52 658" stroke="#5C2D00" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <!-- Legs -->
+  <g fill="#7B3A0F">
+    <rect x="100" y="620" width="32" height="90" rx="14"/>
+    <rect x="150" y="625" width="32" height="85" rx="14"/>
+    <rect x="220" y="625" width="32" height="85" rx="14"/>
+    <rect x="270" y="620" width="32" height="90" rx="14"/>
+  </g>
+  <!-- Hooves -->
+  <g fill="#2E1A00">
+    <rect x="98" y="700" width="36" height="22" rx="8"/>
+    <rect x="148" y="700" width="36" height="22" rx="8"/>
+    <rect x="218" y="700" width="36" height="22" rx="8"/>
+    <rect x="268" y="700" width="36" height="22" rx="8"/>
+  </g>
+</svg>

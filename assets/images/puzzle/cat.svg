@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9C27B0"/>
+      <stop offset="100%" stop-color="#E91E63"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="800" fill="url(#bg)"/>
+  <!-- Decorative dots background -->
+  <g fill="white" opacity="0.12">
+    <circle cx="40" cy="60" r="22"/><circle cx="360" cy="40" r="18"/><circle cx="200" cy="30" r="14"/>
+    <circle cx="80" cy="750" r="25"/><circle cx="330" cy="760" r="20"/><circle cx="160" cy="780" r="16"/>
+  </g>
+  <!-- Stars -->
+  <g fill="#FFD700" opacity="0.7">
+    <circle cx="30" cy="120" r="5"/><circle cx="370" cy="100" r="5"/>
+    <circle cx="50" cy="680" r="4"/><circle cx="360" cy="670" r="4"/>
+  </g>
+  <!-- Cat ears (triangles at top) -->
+  <polygon points="100,260 60,80 160,200" fill="#E67E22"/>
+  <polygon points="300,260 340,80 240,200" fill="#E67E22"/>
+  <!-- Inner ear -->
+  <polygon points="100,240 80,130 145,210" fill="#F0A070"/>
+  <polygon points="300,240 320,130 255,210" fill="#F0A070"/>
+  <!-- Cat head (big round) -->
+  <circle cx="200" cy="420" r="195" fill="#E67E22"/>
+  <!-- Forehead lighter -->
+  <ellipse cx="200" cy="340" rx="130" ry="90" fill="#F39C12" opacity="0.5"/>
+  <!-- Eyes -->
+  <ellipse cx="130" cy="400" rx="45" ry="55" fill="#1A1A1A"/>
+  <ellipse cx="270" cy="400" rx="45" ry="55" fill="#1A1A1A"/>
+  <!-- Eye shine (green iris) -->
+  <ellipse cx="130" cy="405" rx="35" ry="45" fill="#27AE60"/>
+  <ellipse cx="270" cy="405" rx="35" ry="45" fill="#27AE60"/>
+  <!-- Pupil (slit) -->
+  <ellipse cx="130" cy="410" rx="10" ry="38" fill="#111"/>
+  <ellipse cx="270" cy="410" rx="10" ry="38" fill="#111"/>
+  <!-- Eye highlight -->
+  <ellipse cx="118" cy="388" rx="10" ry="12" fill="white" opacity="0.9"/>
+  <ellipse cx="258" cy="388" rx="10" ry="12" fill="white" opacity="0.9"/>
+  <!-- Nose -->
+  <polygon points="200,480 182,510 218,510" fill="#FF69B4"/>
+  <!-- Mouth -->
+  <path d="M182 512 Q200 535 218 512" stroke="#C0506A" stroke-width="3" fill="none"/>
+  <path d="M200 512 L200 524" stroke="#C0506A" stroke-width="3"/>
+  <!-- Whiskers left -->
+  <g stroke="#FFF8" stroke-width="3">
+    <line x1="170" y1="490" x2="30" y2="470"/><line x1="170" y1="500" x2="25" y2="505"/>
+    <line x1="170" y1="510" x2="30" y2="535"/>
+  </g>
+  <!-- Whiskers right -->
+  <g stroke="#FFF8" stroke-width="3">
+    <line x1="230" y1="490" x2="370" y2="470"/><line x1="230" y1="500" x2="375" y2="505"/>
+    <line x1="230" y1="510" x2="370" y2="535"/>
+  </g>
+  <!-- Chin fluff -->
+  <ellipse cx="200" cy="595" rx="80" ry="50" fill="#F5B76A"/>
+  <!-- Bow tie decoration -->
+  <polygon points="200,670 170,640 170,700" fill="#FF4081"/>
+  <polygon points="200,670 230,640 230,700" fill="#FF4081"/>
+  <circle cx="200" cy="670" r="12" fill="#FF80AB"/>
+  <!-- Bottom paws hint -->
+  <ellipse cx="130" cy="760" rx="45" ry="30" fill="#E67E22"/>
+  <ellipse cx="270" cy="760" rx="45" ry="30" fill="#E67E22"/>
+  <ellipse cx="130" cy="765" rx="35" ry="20" fill="#F39C12"/>
+  <ellipse cx="270" cy="765" rx="35" ry="20" fill="#F39C12"/>
+</svg>

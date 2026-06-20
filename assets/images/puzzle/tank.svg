@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#90A955"/>
+      <stop offset="55%" stop-color="#6A994E"/>
+      <stop offset="100%" stop-color="#4A7C59"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="800" fill="url(#bg)"/>
+  <!-- Sky section (top) -->
+  <rect width="400" height="300" fill="#87CEEB" opacity="0.5"/>
+  <!-- Stars/birds -->
+  <g fill="#444" opacity="0.6">
+    <path d="M60 80 Q70 70 80 80 Q70 75 60 80Z"/><path d="M140 50 Q150 40 160 50 Q150 45 140 50Z"/>
+    <path d="M300 90 Q310 80 320 90 Q310 85 300 90Z"/>
+  </g>
+  <!-- Ground texture -->
+  <rect y="640" width="400" height="160" fill="#5D4E37"/>
+  <rect y="660" width="400" height="8" fill="#6B5744" opacity="0.7"/>
+  <!-- Bushes -->
+  <ellipse cx="30" cy="645" rx="35" ry="20" fill="#3B6E3B"/>
+  <ellipse cx="370" cy="650" rx="30" ry="18" fill="#3B6E3B"/>
+  <!-- Tank shadow -->
+  <ellipse cx="200" cy="648" rx="165" ry="16" fill="#222" opacity="0.4"/>
+  <!-- Tank tracks (bottom) -->
+  <rect x="10" y="590" width="375" height="60" rx="28" fill="#2D3A1E"/>
+  <g fill="#1A2412">
+    <rect x="30" y="590" width="20" height="60"/><rect x="70" y="590" width="20" height="60"/>
+    <rect x="110" y="590" width="20" height="60"/><rect x="150" y="590" width="20" height="60"/>
+    <rect x="190" y="590" width="20" height="60"/><rect x="230" y="590" width="20" height="60"/>
+    <rect x="270" y="590" width="20" height="60"/><rect x="310" y="590" width="20" height="60"/>
+    <rect x="350" y="590" width="20" height="60"/>
+  </g>
+  <!-- Road wheels -->
+  <g fill="#1E2A12">
+    <circle cx="60" cy="606" r="18"/><circle cx="110" cy="606" r="18"/>
+    <circle cx="160" cy="606" r="18"/><circle cx="210" cy="606" r="18"/>
+    <circle cx="260" cy="606" r="18"/><circle cx="310" cy="606" r="18"/>
+    <circle cx="350" cy="606" r="18"/>
+  </g>
+  <!-- Tank body -->
+  <rect x="15" y="470" width="370" height="130" rx="12" fill="#4A5E2A"/>
+  <!-- Turret base -->
+  <rect x="100" y="360" width="220" height="115" rx="20" fill="#3B4E1E"/>
+  <!-- Turret top rounded -->
+  <ellipse cx="210" cy="360" rx="110" ry="30" fill="#3B4E1E"/>
+  <!-- Gun barrel -->
+  <rect x="270" y="330" width="130" height="22" rx="10" fill="#2A3A14"/>
+  <rect x="385" y="333" width="15" height="16" rx="4" fill="#1A2A0E"/>
+  <!-- Commander hatch -->
+  <circle cx="160" cy="350" r="28" fill="#2D3E16"/>
+  <circle cx="160" cy="350" r="18" fill="#222"/>
+  <!-- Periscope details -->
+  <rect x="148" y="325" width="24" height="12" rx="4" fill="#1A2A0E"/>
+  <!-- Side armor plates -->
+  <rect x="15" y="490" width="370" height="18" fill="#3A4A1A" opacity="0.8"/>
+  <!-- Star emblem -->
+  <polygon points="210,385 215,400 230,400 218,410 222,425 210,416 198,425 202,410 190,400 205,400" fill="#CC0000" opacity="0.9"/>
+</svg>

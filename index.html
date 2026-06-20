@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#ff6b35">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Весёлый мир">
+  <title>Весёлый мир 🌈</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<!-- Global layers -->
+<div id="confetti-container" class="confetti-container"></div>
+<div id="speech-bubble"      class="speech-bubble hidden"></div>
+
+<!-- ═══ SPLASH ═══ -->
+<div id="screen-splash" class="screen active">
+  <div class="splash-title">🌈 Весёлый мир</div>
+  <div class="splash-sub">Учимся и играем!</div>
+  <button id="btn-play" class="btn-play">▶ Играть!</button>
+</div>
+
+<!-- ═══ MENU ═══ -->
+<div id="screen-menu" class="screen">
+  <div class="menu-title">Что будем делать? 🎉</div>
+<div class="menu-grid">
+    <div class="menu-card" data-goto="screen-animals">
+      <span class="icon">🐮</span>
+      <span class="label">Животные</span>
+    </div>
+    <div class="menu-card" data-goto="screen-shapes">
+      <span class="icon">🔴</span>
+      <span class="label">Цвета и формы</span>
+    </div>
+    <div class="menu-card" data-goto="screen-numbers">
+      <span class="icon">🔢</span>
+      <span class="label">Цифры</span>
+    </div>
+    <div class="menu-card" data-goto="screen-alphabet">
+      <span class="icon">🔤</span>
+      <span class="label">Буквы</span>
+    </div>
+    <div class="menu-card menu-card-wide" data-goto="screen-puzzles">
+      <span class="icon">🧩</span>
+      <span class="label">Пазлы</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ANIMALS ═══ -->
+<div id="screen-animals" class="screen">
+  <div class="game-header">
+    <button class="btn-back">←</button>
+    <div class="game-title">🐮 Животные</div>
+  </div>
+  <div id="animals-grid" class="animals-grid"></div>
+</div>
+
+<!-- ═══ SHAPES ═══ -->
+<div id="screen-shapes" class="screen">
+  <div class="game-header">
+    <button class="btn-back">←</button>
+    <div class="game-title">🔴 Цвета и формы</div>
+  </div>
+  <div id="shapes-grid" class="shapes-grid"></div>
+  <div id="task-bar" class="task-bar"></div>
+</div>
+
+<!-- ═══ NUMBERS ═══ -->
+<div id="screen-numbers" class="screen">
+  <div class="game-header">
+    <button class="btn-back">←</button>
+    <div class="game-title">🔢 Цифры</div>
+  </div>
+  <div id="num-task-bar" class="num-task-bar">
+    <span class="num-task-label">Найди цифру</span>
+    <span id="num-task-big" class="num-task-big">?</span>
+  </div>
+  <div id="numbers-grid" class="numbers-grid"></div>
+</div>
+
+<!-- ═══ ALPHABET ═══ -->
+<div id="screen-alphabet" class="screen">
+  <div class="game-header">
+    <button class="btn-back">←</button>
+    <div class="game-title">🔤 Буквы</div>
+  </div>
+  <div id="letters-grid" class="letters-grid"></div>
+  <div class="page-nav">
+    <button id="btn-prev" class="btn-page">‹</button>
+    <span   id="page-indicator">1 / 5</span>
+    <button id="btn-next" class="btn-page">›</button>
+  </div>
+</div>
+
+<!-- ═══ PUZZLE SELECT ═══ -->
+<div id="screen-puzzles" class="screen">
+  <div class="game-header">
+    <button class="btn-back">←</button>
+    <div class="game-title">🧩 Пазлы</div>
+  </div>
+  <div id="puzzle-select-grid" class="puzzle-select-grid"></div>
+</div>
+
+<!-- ═══ PUZZLE PLAY ═══ -->
+<div id="screen-puzzle-play" class="screen">
+  <div class="game-header">
+    <button class="btn-back" id="puzzle-play-back">←</button>
+    <div class="game-title" id="puzzle-title">Пазл</div>
+    <div id="puzzle-reference" class="puzzle-reference"></div>
+  </div>
+  <div id="puzzle-progress" class="puzzle-progress">✅ 0 / 8</div>
+  <div id="puzzle-grid" class="puzzle-grid"></div>
+</div>
+
+<script src="assets/animals.js"></script>
+<script src="assets/alphabet.js"></script>
+<script src="assets/audio.js"></script>
+<script src="assets/puzzles.js"></script>
+<script src="assets/app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>

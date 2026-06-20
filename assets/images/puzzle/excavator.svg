@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#90CAF9"/>
+      <stop offset="55%" stop-color="#CE93D8"/>
+      <stop offset="100%" stop-color="#A1887F"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="800" fill="url(#bg)"/>
+  <!-- Clouds -->
+  <g fill="white" opacity="0.8">
+    <ellipse cx="300" cy="90" rx="60" ry="28"/><ellipse cx="355" cy="72" rx="48" ry="22"/>
+    <ellipse cx="270" cy="100" rx="40" ry="20"/>
+  </g>
+  <!-- Ground / dirt -->
+  <rect y="640" width="400" height="160" fill="#795548"/>
+  <rect y="660" width="400" height="8" fill="#8D6E63" opacity="0.7"/>
+  <!-- Dirt mounds -->
+  <ellipse cx="360" cy="642" rx="55" ry="22" fill="#8D6E63"/>
+  <ellipse cx="30" cy="645" rx="40" ry="18" fill="#8D6E63"/>
+  <!-- Rocks -->
+  <g fill="#9E9E9E" opacity="0.6">
+    <ellipse cx="340" cy="700" rx="18" ry="10"/><ellipse cx="60" cy="720" rx="15" ry="8"/>
+    <ellipse cx="200" cy="740" rx="12" ry="7"/>
+  </g>
+  <!-- Shadow -->
+  <ellipse cx="190" cy="642" rx="150" ry="13" fill="#3E2723" opacity="0.4"/>
+  <!-- EXCAVATOR TRACKS -->
+  <rect x="15" y="575" width="310" height="65" rx="28" fill="#4E342E"/>
+  <g fill="#3E2723">
+    <rect x="35" y="575" width="16" height="65"/><rect x="70" y="575" width="16" height="65"/>
+    <rect x="105" y="575" width="16" height="65"/><rect x="140" y="575" width="16" height="65"/>
+    <rect x="175" y="575" width="16" height="65"/><rect x="210" y="575" width="16" height="65"/>
+    <rect x="245" y="575" width="16" height="65"/><rect x="280" y="575" width="16" height="65"/>
+  </g>
+  <g fill="#2E1B18">
+    <circle cx="45" cy="595" r="16"/><circle cx="95" cy="595" r="16"/>
+    <circle cx="145" cy="595" r="16"/><circle cx="195" cy="595" r="16"/>
+    <circle cx="245" cy="595" r="16"/><circle cx="295" cy="595" r="16"/>
+  </g>
+  <!-- MAIN BODY (turret/cab platform) -->
+  <rect x="20" y="450" width="305" height="130" rx="14" fill="#F9A825"/>
+  <!-- CAB -->
+  <rect x="155" y="330" width="150" height="125" rx="12" fill="#F57F17"/>
+  <!-- Cab windows -->
+  <rect x="170" y="345" width="118" height="70" rx="8" fill="#81D4FA" opacity="0.85"/>
+  <!-- Cab roof detail -->
+  <rect x="155" y="325" width="150" height="18" rx="8" fill="#E65100" opacity="0.7"/>
+  <!-- Rotating joint -->
+  <circle cx="110" cy="450" r="22" fill="#E65100"/>
+  <circle cx="110" cy="450" r="12" fill="#BF360C"/>
+  <!-- ARM BOOM (upper) -->
+  <rect x="65" y="250" width="100" height="24" rx="10" fill="#FB8C00" transform="rotate(-50 65 250)"/>
+  <!-- ARM STICK (lower) -->
+  <rect x="58" y="90" width="80" height="20" rx="9" fill="#F9A825" transform="rotate(-10 58 90)"/>
+  <!-- BUCKET -->
+  <path d="M15 75 L65 65 L80 110 L30 120Z" fill="#E65100"/>
+  <path d="M15 120 L30 120 L28 140 L12 140Z" fill="#BF360C"/>
+  <path d="M28 140 L85 140 L88 120 L30 120Z" fill="#BF360C"/>
+  <!-- Bucket teeth -->
+  <g fill="#5D4037">
+    <rect x="22" y="138" width="10" height="16" rx="3"/><rect x="40" y="138" width="10" height="16" rx="3"/>
+    <rect x="58" y="138" width="10" height="16" rx="3"/><rect x="75" y="138" width="10" height="16" rx="3"/>
+  </g>
+  <!-- Hydraulic cylinder arm -->
+  <rect x="80" y="300" width="14" height="80" rx="6" fill="#9E9E9E" transform="rotate(-45 80 300)"/>
+  <!-- Exhaust pipe on cab -->
+  <rect x="290" y="290" width="14" height="55" rx="6" fill="#555"/>
+  <ellipse cx="297" cy="288" rx="9" ry="6" fill="#444"/>
+  <!-- Body stripe -->
+  <rect x="20" y="510" width="305" height="16" fill="#E65100" opacity="0.8"/>
+</svg>
