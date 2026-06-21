@@ -743,19 +743,24 @@ html, body {
   padding: 0 4px;
 }
 
-/* Колонка с образцом */
+/* Колонка с образцом: занимает 42% ширины, прилипает при скролле */
 .puzzle-hint-col {
   flex-shrink: 0;
+  width: 42%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
   position: sticky;
-  top: 12px; /* прилипает при скролле */
+  top: 8px;
 }
+/* Трюк aspect-ratio без свойства aspect-ratio (старые WebView):
+   padding-bottom в % считается от ширины РОДИТЕЛЯ,
+   поэтому 200% = высота вдвое больше ширины колонки = пропорция 1:2 пазла */
 .puzzle-hint-img {
-  width: 100px;
-  height: 200px;
+  width: 100%;
+  height: 0;
+  padding-bottom: 200%;
   border-radius: 16px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -877,5 +882,5 @@ html, body {
   .letters-grid    { grid-template-columns: repeat(2, 1fr); }
   .shapes-grid     { gap: 12px; }
   .puzzle-grid     { gap: 5px; }
-  .puzzle-hint-img { width: 76px; height: 152px; }
+  .puzzle-hint-col { width: 38%; }
 }
