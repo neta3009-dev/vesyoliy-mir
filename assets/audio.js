@@ -90,8 +90,10 @@ function playClip(key, onEnd, fallbackText) {
   clip.addEventListener('error', onErr);
 
   try {
+    /* Не используем p.catch() для speak() — iOS иногда отклоняет promise
+       даже когда аудио реально играет; событие 'error' надёжнее */
     var p = clip.play();
-    if (p && p.catch) { p.catch(function() { if (!finished) onErr(); }); }
+    if (p && p.catch) { p.catch(function() {}); }
   } catch(e) { onErr(); }
 }
 
