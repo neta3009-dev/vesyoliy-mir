@@ -398,7 +398,7 @@ function highlightTask(autoSpeak) {
       if (s.id === TASKS[taskIdx].targetId) {
         var okText = TASKS[taskIdx].ok;
         taskIdx = (taskIdx + 1) % TASKS.length;
-        try { successSound(); launchConfetti(); } catch(e) {}
+        try { fanfareSound(); launchConfetti(); } catch(e) {}
         var bar = document.getElementById('task-bar');
         try { bar.classList.add('task-success'); bar.addEventListener('animationend', function () { bar.classList.remove('task-success'); }, { once: true }); } catch(e) {}
         playClip('snd_ok_' + s.id, function() {
