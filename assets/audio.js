@@ -41,12 +41,19 @@ var CLIPS = {};
   });
 })();
 
-/* Воспроизвести клип; onEnd вызывается по окончании */
+/* Остановить все клипы */
+function stopAllClips() {
+  for (var k in CLIPS) {
+    try { CLIPS[k].pause(); CLIPS[k].currentTime = 0; } catch(e) {}
+  }
+}
+
+/* Воспроизвести клип; новый звук останавливает все предыдущие */
 function playClip(key, onEnd) {
+  stopAllClips(); /* один звук за раз */
   var clip = CLIPS[key];
   if (!clip) { if (onEnd) onEnd(); return; }
-  clip.pause();
-  clip.currentTime = 0;
+  try { clip.currentTime = 0; } catch(e) {}
   if (onEnd) {
     var done = function() {
       clip.removeEventListener('ended', done);
@@ -56,7 +63,7 @@ function playClip(key, onEnd) {
     clip.addEventListener('ended', done);
     clip.addEventListener('error', done);
   }
-  clip.play().catch(function() { if (onEnd) onEnd(); });
+  try { clip.play().catch(function() { if (onEnd) onEnd(); }); } catch(e) { if (onEnd) onEnd(); }
 }
 
 /* Буква алфавита: idx = индекс в массиве ALPHABET (0..29)

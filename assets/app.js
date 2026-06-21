@@ -4,6 +4,12 @@ function qsa(sel, fn) {
   for (var i = 0; i < els.length; i++) { fn(els[i]); }
 }
 
+/* Остановить всё аудио: клипы + голос */
+function stopAllAudio() {
+  try { stopAllClips(); } catch(e) {}
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch(e) {}
+}
+
 /* ═══════════════════════════════════════════════════
    WEB AUDIO ENGINE
 ═══════════════════════════════════════════════════ */
@@ -190,6 +196,7 @@ function showScreen(id) {
 ═══════════════════════════════════════════════════ */
 qsa('[data-goto]', function (card) {
   card.addEventListener('click', function () {
+    stopAllAudio();
     tapSound();
     var target = card.dataset.goto;
     showScreen(target);
@@ -202,8 +209,8 @@ qsa('[data-goto]', function (card) {
 
 qsa('.btn-back', function (btn) {
   btn.addEventListener('click', function () {
+    stopAllAudio();
     tapSound();
-    try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch(e) {}
     var fromPuzzlePlay = (btn.id === 'puzzle-play-back');
     showScreen(fromPuzzlePlay ? 'screen-puzzles' : 'screen-menu');
   });
@@ -225,7 +232,7 @@ function initPuzzleSelect() {
     label.textContent = p.emoji + ' ' + p.name;
     card.appendChild(thumb);
     card.appendChild(label);
-    card.addEventListener('click', function() { tapSound(); pzOpen(p); });
+    card.addEventListener('click', function() { stopAllAudio(); tapSound(); pzOpen(p); });
     grid.appendChild(card);
   });
 }

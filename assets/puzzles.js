@@ -109,6 +109,8 @@ function pzClick(slot) {
   PZ.arrange[slot] = t;
   tapSound();
 
+  var lockedBefore = PZ.locked.filter(Boolean).length;
+
   /* проверяем, встали ли на правильные места */
   if (PZ.arrange[slot] === slot) {
     PZ.locked[slot] = true;
@@ -122,11 +124,18 @@ function pzClick(slot) {
   PZ.selected = null;
   pzRender();
 
+  var lockedNow = PZ.locked.filter(Boolean).length;
+
   if (PZ.locked.every(Boolean)) {
     setTimeout(function() {
       successSound();
       launchConfetti(130);
       speak('Ура! Пазл собран! Ты молодец!');
     }, 350);
+  } else if (lockedNow > lockedBefore) {
+    var remaining = PZ.N - lockedNow;
+    setTimeout(function() {
+      speak('Правильно! Ещё ' + remaining + '!');
+    }, 300);
   }
 }
