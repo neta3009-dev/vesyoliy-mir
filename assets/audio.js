@@ -48,22 +48,51 @@ function stopAllClips() {
   }
 }
 
-/* Воспроизвести клип; новый звук останавливает все предыдущие */
-function playClip(key, onEnd) {
-  stopAllClips(); /* один звук за раз */
+/* Воспроизвести клип; новый звук останавливает все предыдущие.
+   fallbackText — фраза для speak() если файл не загрузился за 250 мс */
+function playClip(key, onEnd, fallbackText) {
+  stopAllClips();
   var clip = CLIPS[key];
-  if (!clip) { if (onEnd) onEnd(); return; }
-  try { clip.currentTime = 0; } catch(e) {}
-  if (onEnd) {
-    var done = function() {
-      clip.removeEventListener('ended', done);
-      clip.removeEventListener('error', done);
-      onEnd();
-    };
-    clip.addEventListener('ended', done);
-    clip.addEventListener('error', done);
+  if (!clip) {
+    if (fallbackText) { try { speak(fallbackText); } catch(e) {} }
+    if (onEnd) onEnd();
+    return;
   }
-  try { clip.play().catch(function() { if (onEnd) onEnd(); }); } catch(e) { if (onEnd) onEnd(); }
+  try { clip.currentTime = 0; } catch(e) {}
+
+  var finished    = false;
+  var clipPlaying = false;
+  var fbTimer     = null;
+
+  function finish() {
+    if (finished) return; finished = true;
+    if (fbTimer) { clearTimeout(fbTimer); fbTimer = null; }
+    clip.removeEventListener('ended',          onDone);
+    clip.removeEventListener('error',          onErr);
+    clip.removeEventListener('canplaythrough', onCan);
+    if (onEnd) onEnd();
+  }
+  function onDone() { finish(); }
+  function onErr()  { doFallback(); finish(); }
+  function onCan()  { clipPlaying = true; }
+  function doFallback() {
+    if (!clipPlaying && fallbackText) {
+      clipPlaying = true;
+      try { speak(fallbackText); } catch(e) {}
+    }
+  }
+
+  clip.addEventListener('ended',          onDone);
+  clip.addEventListener('error',          onErr);
+  clip.addEventListener('canplaythrough', onCan);
+
+  /* Если за 250 мс клип не начал играть — говорим сразу */
+  if (fallbackText) { fbTimer = setTimeout(doFallback, 250); }
+
+  try {
+    var p = clip.play();
+    if (p && p.then) { p.then(function() { clipPlaying = true; }).catch(onErr); }
+  } catch(e) { onErr(); }
 }
 
 /* Буква алфавита: idx = индекс в массиве ALPHABET (0..29)

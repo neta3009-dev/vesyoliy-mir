@@ -4,6 +4,20 @@ function qsa(sel, fn) {
   for (var i = 0; i < els.length; i++) { fn(els[i]); }
 }
 
+/* iOS: разблокировать AudioContext и SpeechSynthesis при первом касании */
+document.addEventListener('touchstart', function unlockIos() {
+  document.removeEventListener('touchstart', unlockIos);
+  try { getCtx(); } catch(e) {}
+  try {
+    if (window.speechSynthesis) {
+      var u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      speechSynthesis.speak(u);
+      setTimeout(function() { try { speechSynthesis.cancel(); } catch(e) {} }, 100);
+    }
+  } catch(e) {}
+}, { passive: true });
+
 /* Остановить всё аудио: клипы + голос */
 function stopAllAudio() {
   try { stopAllClips(); } catch(e) {}
@@ -214,7 +228,7 @@ function showScreen(id) {
   }
 
   document.getElementById('btn-play').addEventListener('click', function () {
-    try { getCtx(); successSound(); playClip('snd_hello'); } catch(e) {}
+    try { getCtx(); successSound(); playClip('snd_hello', undefined, 'Привет! Давай играть!'); } catch(e) {}
     showScreen('screen-menu');
   });
 })();
@@ -230,7 +244,7 @@ qsa('[data-goto]', function (card) {
     showScreen(target);
     if (target === 'screen-alphabet') renderAlphabetPage();
     if (target === 'screen-numbers')  resetNumbers();
-    if (target === 'screen-shapes')   setTimeout(function() { try { playClip('snd_task_' + TASKS[taskIdx].targetId); } catch(e){} }, 500);
+    if (target === 'screen-shapes')   setTimeout(function() { try { playClip('snd_task_' + TASKS[taskIdx].targetId, undefined, TASKS[taskIdx].text.replace('👇 ', '')); } catch(e){} }, 500);
     if (target === 'screen-puzzles')  initPuzzleSelect();
   });
 });
@@ -254,7 +268,7 @@ function initPuzzleSelect() {
     card.style.background = p.bg;
     var thumb = document.createElement('div');
     thumb.className = 'puzzle-option-thumb';
-    thumb.style.backgroundImage = "url('assets/images/puzzle/" + p.id + ".png')";
+    thumb.style.backgroundImage = "url('" + PZ_IMG[p.id] + "')";
     var label = document.createElement('div');
     label.className = 'puzzle-option-name';
     label.textContent = p.emoji + ' ' + p.name;
@@ -326,7 +340,7 @@ function showBubble(text, card, color) {
       busyTimer = setTimeout(resetBusy, 900); /* запасной, если animationend не сработает */
 
       animalSound(a.id);
-      playClip('snd_' + a.id);
+      playClip('snd_' + a.id, undefined, a.phrase);
       showBubble(a.sound, card, a.glow);
       launchConfetti(45);
     });
@@ -372,7 +386,7 @@ function highlightTask(autoSpeak) {
   var card = document.querySelector('.shape-card[data-sid="' + t.targetId + '"]');
   if (card && shp) { card.classList.add('task-target'); card.style.setProperty('--glow', shp.color); }
   document.getElementById('task-bar').textContent = t.text;
-  if (autoSpeak) setTimeout(function() { playClip('snd_task_' + t.targetId); }, 300);
+  if (autoSpeak) setTimeout(function() { playClip('snd_task_' + t.targetId, undefined, t.text.replace('👇 ', '')); }, 300);
 }
 
 (function initShapes() {
@@ -390,20 +404,21 @@ function highlightTask(autoSpeak) {
       card.classList.add('grow');
       card.addEventListener('animationend', function () { card.classList.remove('grow'); }, { once: true });
       if (s.id === TASKS[taskIdx].targetId) {
-        try { successSound(); playClip('snd_ok_' + s.id); launchConfetti(); } catch(e) {}
+        var okText = TASKS[taskIdx].ok;
+        try { successSound(); playClip('snd_ok_' + s.id, undefined, okText); launchConfetti(); } catch(e) {}
         var bar = document.getElementById('task-bar');
         try { bar.classList.add('task-success'); bar.addEventListener('animationend', function () { bar.classList.remove('task-success'); }, { once: true }); } catch(e) {}
         taskIdx = (taskIdx + 1) % TASKS.length;
         setTimeout(function() { try { highlightTask(true); } catch(e) { highlightTask(false); } }, 1800);
       } else {
         tapSound();
-        playClip('snd_' + s.id);
+        playClip('snd_' + s.id, undefined, s.name);
       }
     });
     grid.appendChild(card);
   });
   document.getElementById('task-bar').addEventListener('click', function () {
-    playClip('snd_task_' + TASKS[taskIdx].targetId);
+    playClip('snd_task_' + TASKS[taskIdx].targetId, undefined, TASKS[taskIdx].text.replace('👇 ', ''));
   });
   highlightTask();
 })();
@@ -440,7 +455,7 @@ function newNumberTask() {
   do { numTarget = Math.floor(Math.random() * 20) + 1; } while (numTarget === prev);
   document.getElementById('num-task-big').textContent = numTarget;
   qsa('.number-card', function (c) { c.classList.remove('num-correct', 'num-wrong'); });
-  setTimeout(function () { try { playClip('snd_num_' + numTarget); } catch(e) {} }, 350);
+  setTimeout(function () { try { playClip('snd_num_' + numTarget, undefined, 'Найди цифру ' + numTarget + '!'); } catch(e) {} }, 350);
 }
 
 function resetNumbers() {
@@ -465,7 +480,7 @@ function resetNumbers() {
         if (n === numTarget) {
           numBusy = true;
           card.classList.add('num-correct');
-          try { fanfareSound(); launchConfetti(100); playClip('snd_numok_' + Math.floor(Math.random() * 5)); } catch(e) {}
+          try { fanfareSound(); launchConfetti(100); playClip('snd_numok_' + Math.floor(Math.random() * 5), undefined, 'Молодец! Правильно!'); } catch(e) {}
           setTimeout(newNumberTask, 2400);
         } else {
           card.classList.add('num-wrong');
@@ -475,8 +490,8 @@ function resetNumbers() {
           wrongSound();
           var noIdx = Math.floor(Math.random() * 3);
           playClip('snd_numno_' + noIdx, function() {
-            setTimeout(function() { playClip('snd_num_' + numTarget); }, 200);
-          });
+            setTimeout(function() { playClip('snd_num_' + numTarget, undefined, 'Найди цифру ' + numTarget + '!'); }, 200);
+          }, 'Не верно! Найди цифру ' + numTarget + '!');
         }
       });
       grid.appendChild(card);
@@ -484,7 +499,7 @@ function resetNumbers() {
   }
 
   document.getElementById('num-task-bar').addEventListener('click', function () {
-    if (numTarget > 0) playClip('snd_num_' + numTarget);
+    if (numTarget > 0) playClip('snd_num_' + numTarget, undefined, 'Найди цифру ' + numTarget + '!');
   });
 })();
 
