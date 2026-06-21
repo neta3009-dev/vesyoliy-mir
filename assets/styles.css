@@ -733,24 +733,58 @@ html, body {
 }
 
 /* Reference thumbnail */
-.puzzle-reference {
-  width: 52px;
-  height: 100px;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,.2);
-  border: 3px solid #fff;
-  margin-left: auto;
+/* Flex-обёртка: образец слева, сетка справа */
+.puzzle-play-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 520px;
+  padding: 0 4px;
+}
+
+/* Колонка с образцом */
+.puzzle-hint-col {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: sticky;
+  top: 12px; /* прилипает при скролле */
+}
+.puzzle-hint-img {
+  width: 100px;
+  height: 200px;
+  border-radius: 16px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,.28);
+}
+.puzzle-hint-label {
+  font-size: 13px;
+  font-weight: 900;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* Колонка с прогрессом и сеткой */
+.puzzle-main-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Progress bar */
 .puzzle-progress {
-  font-size: 4.5vw; font-size: clamp(18px, 4.5vw, 28px);
+  font-size: 4.5vw; font-size: clamp(16px, 4.5vw, 24px);
   font-weight: 900;
   color: #555;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -760,7 +794,6 @@ html, body {
   grid-template-columns: repeat(2, 1fr);
   gap: 6px;
   width: 100%;
-  max-width: 380px; /* calc с vh и делением не работает в старых WebView */
 }
 
 .puzzle-cell {
@@ -844,5 +877,5 @@ html, body {
   .letters-grid    { grid-template-columns: repeat(2, 1fr); }
   .shapes-grid     { gap: 12px; }
   .puzzle-grid     { gap: 5px; }
-  .puzzle-reference { width: 42px; height: 80px; }
+  .puzzle-hint-img { width: 76px; height: 152px; }
 }

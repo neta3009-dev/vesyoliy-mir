@@ -54,8 +54,8 @@ function pzOpen(puzzle) {
   while (PZ.arrange.some(function(p,i){ return p === i; }));
 
   document.getElementById('puzzle-title').textContent = puzzle.name;
-  var ref = document.getElementById('puzzle-reference');
-  ref.style.backgroundImage = "url('" + PZ_IMG[puzzle.id] + "')";
+  var hint = document.getElementById('puzzle-hint-img');
+  hint.style.backgroundImage = "url('" + PZ_IMG[puzzle.id] + "')";
 
   pzRender();
   showScreen('screen-puzzle-play');
