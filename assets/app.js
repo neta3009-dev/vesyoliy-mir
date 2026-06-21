@@ -397,11 +397,13 @@ function highlightTask(autoSpeak) {
       card.addEventListener('animationend', function () { card.classList.remove('grow'); }, { once: true });
       if (s.id === TASKS[taskIdx].targetId) {
         var okText = TASKS[taskIdx].ok;
-        try { successSound(); playClip('snd_ok_' + s.id, undefined, okText); launchConfetti(); } catch(e) {}
+        taskIdx = (taskIdx + 1) % TASKS.length;
+        try { successSound(); launchConfetti(); } catch(e) {}
         var bar = document.getElementById('task-bar');
         try { bar.classList.add('task-success'); bar.addEventListener('animationend', function () { bar.classList.remove('task-success'); }, { once: true }); } catch(e) {}
-        taskIdx = (taskIdx + 1) % TASKS.length;
-        setTimeout(function() { try { highlightTask(true); } catch(e) { highlightTask(false); } }, 1800);
+        playClip('snd_ok_' + s.id, function() {
+          setTimeout(function() { try { highlightTask(true); } catch(e) { highlightTask(false); } }, 500);
+        }, okText);
       } else {
         tapSound();
         playClip('snd_' + s.id, undefined, s.name);
