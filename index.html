@@ -133,7 +133,12 @@
 <script src="assets/app.js"></script>
 <script>
 if ('serviceWorker' in navigator) {
-  try { navigator.serviceWorker.register('./sw.js').catch(function(){}); } catch(e) {}
+  try {
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+    navigator.serviceWorker.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'SW_UPDATED') { window.location.reload(); }
+    });
+  } catch(e) {}
 }
 </script>
 </body>

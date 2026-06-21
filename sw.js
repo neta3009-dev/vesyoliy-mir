@@ -1,5 +1,5 @@
 /* Service Worker — Весёлый мир */
-var CACHE = 'vesyoliy-mir-v8';
+var CACHE = 'vesyoliy-mir-v9';
 
 /* Ядро: кэшируется при установке обязательно */
 var CORE = [
@@ -137,6 +137,12 @@ self.addEventListener('activate', function(e) {
             .map(function(k) { return caches.delete(k); })
       );
     }).then(function() { return self.clients.claim(); })
+      .then(function() {
+        /* После активации нового SW — перезагружаем все вкладки */
+        return self.clients.matchAll({ type: 'window' }).then(function(clients) {
+          clients.forEach(function(c) { c.postMessage({ type: 'SW_UPDATED' }); });
+        });
+      })
   );
 });
 
