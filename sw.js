@@ -1,5 +1,5 @@
 /* Service Worker — Весёлый мир */
-var CACHE = 'vesyoliy-mir-v7';
+var CACHE = 'vesyoliy-mir-v8';
 
 /* Ядро: кэшируется при установке обязательно */
 var CORE = [
