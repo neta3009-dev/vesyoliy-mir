@@ -104,28 +104,56 @@ function tapSound() {
 
 
 /* ═══════════════════════════════════════════════════
-   РЕЧЬ — Web Speech API (встроен в браузер, офлайн)
+   РЕЧЬ — Web Speech API
 ═══════════════════════════════════════════════════ */
+var _speakHeartbeat = null;
+
 function speak(text) {
   if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
+  try { speechSynthesis.cancel(); } catch(e) {}
+  if (_speakHeartbeat) { clearInterval(_speakHeartbeat); _speakHeartbeat = null; }
 
   function doSpeak() {
-    var u = new SpeechSynthesisUtterance(text);
-    u.lang   = 'ru-RU';
-    u.rate   = 0.8;
-    u.pitch  = 1.2;
-    u.volume = 1;
-    var voices  = speechSynthesis.getVoices();
-    var ruVoice = voices.filter(function(v) { return v.lang && v.lang.startsWith('ru'); })[0];
-    if (ruVoice) u.voice = ruVoice;
-    speechSynthesis.speak(u);
+    try {
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang   = 'ru-RU';
+      u.rate   = 0.8;
+      u.pitch  = 1.2;
+      u.volume = 1;
+
+      var voices  = speechSynthesis.getVoices();
+      var ruVoice = voices.filter(function(v) { return v.lang && v.lang.startsWith('ru'); })[0];
+      if (ruVoice) u.voice = ruVoice;
+
+      u.onend = u.onerror = function() {
+        if (_speakHeartbeat) { clearInterval(_speakHeartbeat); _speakHeartbeat = null; }
+      };
+
+      speechSynthesis.speak(u);
+
+      /* iOS-фикс: SpeechSynthesis «засыпает» через ~15 сек — будим его каждые 10 сек */
+      _speakHeartbeat = setInterval(function() {
+        if (!window.speechSynthesis || !speechSynthesis.speaking) {
+          clearInterval(_speakHeartbeat); _speakHeartbeat = null; return;
+        }
+        speechSynthesis.pause();
+        speechSynthesis.resume();
+      }, 10000);
+    } catch(e) {}
   }
 
+  /* iOS: getVoices() первый раз возвращает [] — ждём voiceschanged или таймаут */
   if (speechSynthesis.getVoices().length > 0) {
     doSpeak();
   } else {
-    speechSynthesis.addEventListener('voiceschanged', doSpeak, { once: true });
+    var voiceFallback = setTimeout(doSpeak, 500);
+    try {
+      speechSynthesis.onvoiceschanged = function() {
+        speechSynthesis.onvoiceschanged = null;
+        clearTimeout(voiceFallback);
+        doSpeak();
+      };
+    } catch(e) {}
   }
 }
 

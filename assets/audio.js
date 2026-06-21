@@ -36,7 +36,7 @@ var CLIPS = {};
 
   keys.forEach(function(k) {
     var a = new Audio('assets/audio/' + k + '.m4a');
-    a.preload = 'auto';
+    a.preload = 'none'; /* не грузить файлы заранее — они могут не существовать */
     CLIPS[k] = a;
   });
 })();
