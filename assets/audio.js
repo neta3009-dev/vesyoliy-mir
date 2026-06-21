@@ -48,10 +48,21 @@ function stopAllClips() {
   }
 }
 
+/* Файлы, которых не существует — запоминаем, чтобы следующий вызов был мгновенным */
+var DEAD_CLIPS = {};
+
 /* Воспроизвести клип; новый звук останавливает все предыдущие.
-   fallbackText — фраза для speak() если файл не загрузился за 250 мс */
+   fallbackText — фраза для speak() ТОЛЬКО если файл реально не загрузился */
 function playClip(key, onEnd, fallbackText) {
   stopAllClips();
+
+  /* Уже знаем, что файл не существует — сразу говорим */
+  if (DEAD_CLIPS[key]) {
+    if (fallbackText) { try { speak(fallbackText); } catch(e) {} }
+    if (onEnd) onEnd();
+    return;
+  }
+
   var clip = CLIPS[key];
   if (!clip) {
     if (fallbackText) { try { speak(fallbackText); } catch(e) {} }
@@ -60,38 +71,27 @@ function playClip(key, onEnd, fallbackText) {
   }
   try { clip.currentTime = 0; } catch(e) {}
 
-  var finished    = false;
-  var clipPlaying = false;
-  var fbTimer     = null;
+  var finished = false;
 
   function finish() {
     if (finished) return; finished = true;
-    if (fbTimer) { clearTimeout(fbTimer); fbTimer = null; }
-    clip.removeEventListener('ended',          onDone);
-    clip.removeEventListener('error',          onErr);
-    clip.removeEventListener('canplaythrough', onCan);
+    clip.removeEventListener('ended', onDone);
+    clip.removeEventListener('error', onErr);
     if (onEnd) onEnd();
   }
   function onDone() { finish(); }
-  function onErr()  { doFallback(); finish(); }
-  function onCan()  { clipPlaying = true; }
-  function doFallback() {
-    if (!clipPlaying && fallbackText) {
-      clipPlaying = true;
-      try { speak(fallbackText); } catch(e) {}
-    }
+  function onErr() {
+    DEAD_CLIPS[key] = true; /* помним: этот файл не существует */
+    if (fallbackText) { try { speak(fallbackText); } catch(e) {} }
+    finish();
   }
 
-  clip.addEventListener('ended',          onDone);
-  clip.addEventListener('error',          onErr);
-  clip.addEventListener('canplaythrough', onCan);
-
-  /* Если за 250 мс клип не начал играть — говорим сразу */
-  if (fallbackText) { fbTimer = setTimeout(doFallback, 250); }
+  clip.addEventListener('ended', onDone);
+  clip.addEventListener('error', onErr);
 
   try {
     var p = clip.play();
-    if (p && p.then) { p.then(function() { clipPlaying = true; }).catch(onErr); }
+    if (p && p.catch) { p.catch(function() { if (!finished) onErr(); }); }
   } catch(e) { onErr(); }
 }
 

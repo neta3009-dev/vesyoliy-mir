@@ -4,18 +4,10 @@ function qsa(sel, fn) {
   for (var i = 0; i < els.length; i++) { fn(els[i]); }
 }
 
-/* iOS: разблокировать AudioContext и SpeechSynthesis при первом касании */
-document.addEventListener('touchstart', function unlockIos() {
-  document.removeEventListener('touchstart', unlockIos);
+/* iOS: разблокировать AudioContext при первом касании */
+document.addEventListener('touchstart', function unlockCtx() {
+  document.removeEventListener('touchstart', unlockCtx);
   try { getCtx(); } catch(e) {}
-  try {
-    if (window.speechSynthesis) {
-      var u = new SpeechSynthesisUtterance(' ');
-      u.volume = 0;
-      speechSynthesis.speak(u);
-      setTimeout(function() { try { speechSynthesis.cancel(); } catch(e) {} }, 100);
-    }
-  } catch(e) {}
 }, { passive: true });
 
 /* Остановить всё аудио: клипы + голос */

@@ -1,5 +1,5 @@
 /* Service Worker — Весёлый мир */
-var CACHE = 'vesyoliy-mir-v1';
+var CACHE = 'vesyoliy-mir-v2';
 
 /* Ядро: кэшируется при установке */
 var CORE = [
@@ -43,18 +43,22 @@ self.addEventListener('activate', function(e) {
   );
 });
 
-/* Стратегия: сначала кэш, при промахе — сеть + кэшируем ответ */
+/* Стратегия: сначала кэш, при промахе — сеть + кэшируем ответ.
+   Для аудио кешируем даже 404 — следующий запрос будет мгновенным */
 self.addEventListener('fetch', function(e) {
   if (e.request.method !== 'GET') return;
+  var isAudio = e.request.url.indexOf('/audio/') !== -1;
   e.respondWith(
     caches.match(e.request).then(function(cached) {
       if (cached) return cached;
       return fetch(e.request).then(function(resp) {
-        if (resp && resp.ok) {
+        if (resp && (resp.ok || (isAudio && resp.status === 404))) {
           var clone = resp.clone();
           caches.open(CACHE).then(function(cache) { cache.put(e.request, clone); });
         }
         return resp;
+      }).catch(function() {
+        return new Response('', { status: 503, statusText: 'Offline' });
       });
     })
   );
