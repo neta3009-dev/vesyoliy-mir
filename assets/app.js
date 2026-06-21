@@ -472,8 +472,11 @@ function resetNumbers() {
         if (n === numTarget) {
           numBusy = true;
           card.classList.add('num-correct');
-          try { fanfareSound(); launchConfetti(100); playClip('snd_numok_' + Math.floor(Math.random() * 5), undefined, 'Молодец! Правильно!'); } catch(e) {}
-          setTimeout(newNumberTask, 2400);
+          try { fanfareSound(); launchConfetti(100); } catch(e) {}
+          setTimeout(function() {
+            try { playClip('snd_numok_' + Math.floor(Math.random() * 5), undefined, 'Молодец! Правильно!'); } catch(e) {}
+          }, 500);
+          setTimeout(newNumberTask, 2900);
         } else {
           card.classList.add('num-wrong');
           card.addEventListener('animationend', function () {
@@ -481,9 +484,11 @@ function resetNumbers() {
           }, { once: true });
           wrongSound();
           var noIdx = Math.floor(Math.random() * 3);
-          playClip('snd_numno_' + noIdx, function() {
-            setTimeout(function() { playClip('snd_num_' + numTarget, undefined, 'Найди цифру ' + numTarget + '!'); }, 200);
-          }, 'Не верно! Найди цифру ' + numTarget + '!');
+          setTimeout(function() {
+            playClip('snd_numno_' + noIdx, function() {
+              setTimeout(function() { playClip('snd_num_' + numTarget, undefined, 'Найди цифру ' + numTarget + '!'); }, 200);
+            }, 'Не верно! Найди цифру ' + numTarget + '!');
+          }, 500);
         }
       });
       grid.appendChild(card);
