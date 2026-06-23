@@ -18,7 +18,7 @@ var CLIPS = {};
     /* пазлы */
     'snd_pz_car','snd_pz_airplane','snd_pz_train','snd_pz_cat',
     'snd_pz_helicopter','snd_pz_horse','snd_pz_tractor','snd_pz_excavator',
-    'snd_pz_ok','snd_pz_win',
+    'snd_pz_ok','snd_pz_wrong','snd_pz_win',
     /* фразы — приветствие */
     'snd_hello',
     /* фразы — задания форм */

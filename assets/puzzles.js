@@ -154,9 +154,12 @@ function pzClick(slot) {
       playClip('snd_pz_win', undefined, 'Ура! Пазл собран! Молодец!');
     }, 350);
   } else if (lockedNow > lockedBefore) {
-    var remaining = PZ.N - lockedNow;
     setTimeout(function() {
       playClip('snd_pz_ok', undefined, 'Правильно!');
+    }, 300);
+  } else {
+    setTimeout(function() {
+      playClip('snd_pz_wrong', undefined, 'Не верно!');
     }, 300);
   }
 }
