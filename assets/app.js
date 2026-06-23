@@ -366,17 +366,16 @@ var TASKS = [
   { text: '👇 Найди оранжевое сердце!',         targetId: 'heart',     ok: 'Классно! Это оранжевое сердце!' },
   { text: '👇 Найди фиолетовый прямоугольник!', targetId: 'rectangle', ok: 'Великолепно! Это фиолетовый прямоугольник!' },
 ];
-var taskIdx = 0;
+var taskIdx = Math.floor(Math.random() * TASKS.length);
+
+function nextTaskIdx() {
+  var prev = taskIdx, next;
+  do { next = Math.floor(Math.random() * TASKS.length); } while (next === prev);
+  return next;
+}
 
 function highlightTask(autoSpeak) {
-  qsa('.shape-card', function (c) {
-    c.classList.remove('task-target');
-    c.style.removeProperty('--glow');
-  });
-  var t    = TASKS[taskIdx];
-  var shp  = SHAPES.filter(function (s) { return s.id === t.targetId; })[0];
-  var card = document.querySelector('.shape-card[data-sid="' + t.targetId + '"]');
-  if (card && shp) { card.classList.add('task-target'); card.style.setProperty('--glow', shp.color); }
+  var t = TASKS[taskIdx];
   document.getElementById('task-bar').textContent = t.text;
   if (autoSpeak) setTimeout(function() { playClip('snd_task_' + t.targetId, undefined, t.text.replace('👇 ', '')); }, 300);
 }
@@ -391,13 +390,13 @@ function highlightTask(autoSpeak) {
       '<svg class="shape-svg" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">' +
       s.svg + '</svg><span class="shape-name">' + s.name + '</span>';
     card.addEventListener('click', function () {
-      card.classList.remove('grow');
-      void card.offsetWidth;
-      card.classList.add('grow');
-      card.addEventListener('animationend', function () { card.classList.remove('grow'); }, { once: true });
       if (s.id === TASKS[taskIdx].targetId) {
+        card.classList.remove('grow');
+        void card.offsetWidth;
+        card.classList.add('grow');
+        card.addEventListener('animationend', function () { card.classList.remove('grow'); }, { once: true });
         var okText = TASKS[taskIdx].ok;
-        taskIdx = (taskIdx + 1) % TASKS.length;
+        taskIdx = nextTaskIdx();
         try { fanfareSound(); launchConfetti(); } catch(e) {}
         var bar = document.getElementById('task-bar');
         try { bar.classList.add('task-success'); bar.addEventListener('animationend', function () { bar.classList.remove('task-success'); }, { once: true }); } catch(e) {}
@@ -405,7 +404,11 @@ function highlightTask(autoSpeak) {
           setTimeout(function() { try { highlightTask(true); } catch(e) { highlightTask(false); } }, 500);
         }, okText);
       } else {
-        tapSound();
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
+        card.addEventListener('animationend', function () { card.classList.remove('shake'); }, { once: true });
+        wrongSound();
         playClip('snd_' + s.id, undefined, s.name);
       }
     });

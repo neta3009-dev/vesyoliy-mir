@@ -480,6 +480,17 @@ html, body {
   100% { transform: scale(1) rotate(0deg); }
 }
 
+.shape-card.shake { animation: shapeShake 0.45s ease; }
+@keyframes shapeShake {
+  0%,100% { transform: translateX(0) rotate(0deg); }
+  15%  { transform: translateX(-10px) rotate(-4deg); }
+  30%  { transform: translateX(10px)  rotate(4deg); }
+  45%  { transform: translateX(-8px)  rotate(-3deg); }
+  60%  { transform: translateX(8px)   rotate(3deg); }
+  75%  { transform: translateX(-5px)  rotate(-1deg); }
+  90%  { transform: translateX(5px)   rotate(1deg); }
+}
+
 .shape-svg { width: 94px; height: 94px; margin-bottom: 12px; }
 .shape-name { font-size: 3.2vw; font-size: clamp(13px, 3.2vw, 19px); font-weight: 800; color: #444; text-align: center; }
 
@@ -757,11 +768,11 @@ html, body {
 }
 /* Трюк aspect-ratio без свойства aspect-ratio (старые WebView):
    padding-bottom в % считается от ширины РОДИТЕЛЯ,
-   поэтому 200% = высота вдвое больше ширины колонки = пропорция 1:2 пазла */
+   поэтому 100% = квадрат (картинки 1:1) */
 .puzzle-hint-img {
   width: 100%;
   height: 0;
-  padding-bottom: 200%;
+  padding-bottom: 100%;
   border-radius: 16px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -805,7 +816,7 @@ html, body {
 .puzzle-cell {
   border-radius: 14px;
   height: 0;
-  padding-bottom: 100%; /* квадрат — верно для сетки 2×4 при картинке 400×800 */
+  padding-bottom: 100%; /* квадрат — верно для сетки 2×2 при квадратной картинке */
   cursor: pointer;
   background-repeat: no-repeat;
   box-shadow: 0 3px 10px rgba(0,0,0,.18);
