@@ -15,6 +15,10 @@ var CLIPS = {};
     /* формы */
     'snd_circle','snd_square','snd_triangle',
     'snd_star','snd_heart','snd_rectangle',
+    /* пазлы */
+    'snd_pz_car','snd_pz_airplane','snd_pz_train','snd_pz_cat',
+    'snd_pz_helicopter','snd_pz_horse','snd_pz_tractor','snd_pz_excavator',
+    'snd_pz_ok','snd_pz_win',
     /* фразы — приветствие */
     'snd_hello',
     /* фразы — задания форм */

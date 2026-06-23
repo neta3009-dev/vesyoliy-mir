@@ -55,7 +55,7 @@ function pzOpen(puzzle) {
 
   pzRender();
   showScreen('screen-puzzle-play');
-  speak('Собери пазл! ' + puzzle.name);
+  playClip('snd_pz_' + puzzle.id, undefined, 'Собери пазл! ' + puzzle.name);
 }
 
 function pzBgPos(pieceId) {
@@ -151,12 +151,12 @@ function pzClick(slot) {
     setTimeout(function() {
       successSound();
       launchConfetti(130);
-      speak('Ура! Пазл собран! Ты молодец!');
+      playClip('snd_pz_win', undefined, 'Ура! Пазл собран! Молодец!');
     }, 350);
   } else if (lockedNow > lockedBefore) {
     var remaining = PZ.N - lockedNow;
     setTimeout(function() {
-      speak('Правильно! Ещё ' + remaining + '!');
+      playClip('snd_pz_ok', undefined, 'Правильно!');
     }, 300);
   }
 }

@@ -1,5 +1,5 @@
 /* Service Worker — Весёлый мир */
-var CACHE = 'vesyoliy-mir-v12';
+var CACHE = 'vesyoliy-mir-v13';
 
 /* Ядро: кэшируется при установке обязательно */
 var CORE = [
@@ -41,6 +41,16 @@ var AUDIO = [
   './assets/audio/snd_monkey.m4a',
   './assets/audio/snd_chicken.m4a',
   './assets/audio/snd_rooster.m4a',
+  './assets/audio/snd_pz_car.m4a',
+  './assets/audio/snd_pz_airplane.m4a',
+  './assets/audio/snd_pz_train.m4a',
+  './assets/audio/snd_pz_cat.m4a',
+  './assets/audio/snd_pz_helicopter.m4a',
+  './assets/audio/snd_pz_horse.m4a',
+  './assets/audio/snd_pz_tractor.m4a',
+  './assets/audio/snd_pz_excavator.m4a',
+  './assets/audio/snd_pz_ok.m4a',
+  './assets/audio/snd_pz_win.m4a',
   './assets/audio/snd_hello.m4a',
   './assets/audio/snd_circle.m4a',
   './assets/audio/snd_square.m4a',
