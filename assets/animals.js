@@ -42,9 +42,39 @@ const ANIMALS = [
     glow: '#5b9bd5', idle: 'idle-sway', click: 'click-triple-bounce',
   },
   {
-    id: 'pig',   emoji: '🐷', name: 'Свинья',  sound: 'ХРЮ-ХРЮ!',
+    id: 'pig',     emoji: '🐷', name: 'Свинья',   sound: 'ХРЮ-ХРЮ!',
     phrase: 'Свинья говорит хрю-хрю!',
     bg: 'linear-gradient(145deg,#ffb3de,#e91e8c)',
     glow: '#e91e8c', idle: 'idle-sniff', click: 'click-jiggle',
+  },
+  {
+    id: 'mouse',   emoji: '🐭', name: 'Мышь',     sound: 'ПИ-ПИ-ПИ!',
+    phrase: 'Мышь говорит пи-пи-пи!',
+    bg: 'linear-gradient(145deg,#e0c3fc,#9b59b6)',
+    glow: '#9b59b6', idle: 'idle-sway', click: 'click-spin-jump',
+  },
+  {
+    id: 'parrot',  emoji: '🦜', name: 'Попугай',  sound: 'ПРИВЕТ!',
+    phrase: 'Попугай говорит привет!',
+    bg: 'linear-gradient(145deg,#b7f7c0,#00b894)',
+    glow: '#00b894', idle: 'idle-hop', click: 'click-flap',
+  },
+  {
+    id: 'monkey',  emoji: '🐒', name: 'Обезьяна', sound: 'У-У-У!',
+    phrase: 'Обезьяна говорит у-у-у!',
+    bg: 'linear-gradient(145deg,#ffeaa7,#e17055)',
+    glow: '#e17055', idle: 'idle-wag', click: 'click-big-bounce',
+  },
+  {
+    id: 'chicken', emoji: '🐔', name: 'Курица',   sound: 'КО-КО-КО!',
+    phrase: 'Курица говорит ко-ко-ко!',
+    bg: 'linear-gradient(145deg,#fff9a0,#fdcb6e)',
+    glow: '#fdcb6e', idle: 'idle-waddle', click: 'click-triple-bounce',
+  },
+  {
+    id: 'rooster', emoji: '🐓', name: 'Петух',    sound: 'КУ-КА-РЕ-КУ!',
+    phrase: 'Петух говорит ку-ка-ре-ку!',
+    bg: 'linear-gradient(145deg,#ff7675,#d63031)',
+    glow: '#d63031', idle: 'idle-trot', click: 'click-rear-up',
   },
 ];

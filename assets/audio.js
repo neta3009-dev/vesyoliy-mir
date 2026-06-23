@@ -8,6 +8,7 @@ var CLIPS = {};
     /* животные */
     'snd_cat','snd_dog','snd_cow','snd_frog',
     'snd_duck','snd_horse','snd_sheep','snd_pig',
+    'snd_mouse','snd_parrot','snd_monkey','snd_chicken','snd_rooster',
     /* цифры-счёт (старые, для возможного повтора) */
     'snd_n1','snd_n2','snd_n3','snd_n4','snd_n5',
     'snd_n6','snd_n7','snd_n8','snd_n9','snd_n10','snd_done',
