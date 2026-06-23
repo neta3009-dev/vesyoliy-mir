@@ -7,7 +7,7 @@ var PZ_IMG = {
   train:      'assets/images/puzzle/' + encodeURIComponent('поезд')      + '.png',
   cat:        'assets/images/puzzle/' + encodeURIComponent('кошка')      + '.png',
   helicopter: 'assets/images/puzzle/' + encodeURIComponent('вертолёт')   + '.png',
-  horse:      'assets/images/puzzle/' + encodeURIComponent('лошадь')     + '.jpeg',
+  horse:      'assets/images/puzzle/' + encodeURIComponent('лошадь')     + '.png',
   tractor:    'assets/images/puzzle/' + encodeURIComponent('трактор')    + '.png',
   excavator:  'assets/images/puzzle/' + encodeURIComponent('экскаватор') + '.png',
 };
